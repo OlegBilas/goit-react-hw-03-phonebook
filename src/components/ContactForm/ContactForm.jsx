@@ -10,8 +10,6 @@ export default class ContactForm extends Component {
   state = {
     name: '',
     number: '',
-    idName: nanoid(),
-    idNumber: nanoid(),
   };
 
   handleChange = e => {
@@ -21,12 +19,13 @@ export default class ContactForm extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    const { name, number } = this.state;
-    this.props.onSubmit({ name, number, id: nanoid() });
+    this.props.onSubmit({ id: nanoid(), ...this.state });
     this.setState({ name: '', number: '' });
   };
   render() {
-    const { name, number, idName, idNumber } = this.state;
+    const { name, number } = this.state;
+    const idName = nanoid();
+    const idNumber = nanoid();
     return (
       <Form onSubmit={this.handleSubmit}>
         <Label htmlFor={idName}>Name</Label>
